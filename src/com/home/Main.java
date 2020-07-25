@@ -5,16 +5,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
-        System.out.println("Enter grid size: ");
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter a width: ");
         int width = sc.nextInt();
-        System.out.println("Enter a height: ");
-        int height = sc.nextInt();
 
-        System.out.println("Enter grid element: ");
+        int height = sc.nextInt();
 
         int[][] gameGrid = new int[width][height];
 
@@ -24,25 +19,17 @@ public class Main {
             }
         }
 
+        int N = sc.nextInt();
+
+        int x1 = sc.nextInt();
+        int y1 = sc.nextInt();
+
         Grid grid = new Grid(width, height, gameGrid);
         Rules rule = new Rules(grid);
         Simulation simulation = new Simulation(grid, rule);
 
         grid.setGrid(gameGrid);
 
-        simulation.print();
-        simulation.step();
-
-        System.out.println();
-        simulation.print();
-
-        System.out.println();
-
-        simulation.step();
-        simulation.print();
-
-        System.out.println();
-        simulation.step();
-        simulation.print();
+        simulation.numberOfGeneration(N, x1, y1);
     }
 }

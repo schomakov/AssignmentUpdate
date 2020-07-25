@@ -56,4 +56,17 @@ public class Simulation {
 
         this.grid.setGrid(newGrid);
     }
+
+    public void numberOfGeneration(int N, int x1, int y1) {
+        int counter = 0;
+
+        for (int i = 0; i < N; i++) {
+            step();
+            if (grid.getGrid()[x1][y1] == 1) {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+    }
 }
+
