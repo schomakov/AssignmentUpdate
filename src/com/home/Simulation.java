@@ -1,54 +1,40 @@
 package com.home;
 
-public class Simulation extends Rules {
+public class Simulation {
 
-    public Simulation(int width, int height) {
-        super(width, height);
+    Grid grid;
+    Rules rule;
+
+    public Simulation(Grid grid, Rules rule) {
+
+        this.grid = grid;
+        this.rule = rule;
+
     }
 
     public void print() {
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < grid.getWidth(); i++) {
             StringBuilder line = new StringBuilder("");
-            for (int j = 0; j < height; j++) {
-                if (this.grid[i][j] == 0) {
+            for (int j = 0; j < grid.getHeight(); j++) {
+                if (this.grid.getGrid()[i][j] == 0) {
                     line.append("0");
                 } else {
                     line.append("1");
                 }
             }
-            line.append("");
+            line.append(" ");
             System.out.println(line);
         }
     }
 
-    public int getState(int i, int j) {
-        if (i < 0 || i >= width) {
-            return 0;
-        }
-
-        if (j < 0 || j >= height) {
-            return 0;
-        }
-
-        return this.grid[i][j];
-    }
-
-    public void setGreen(int i, int j) {
-        this.grid[i][j] = 1;
-    }
-
-    public void setRed(int i, int j) {
-        this.grid[i][j] = 0;
-    }
-
     public void step() {
-        int[][] newGrid = new int[width][height];
+        int[][] newGrid = new int[grid.getWidth()][grid.getHeight()];
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                int greenNeighbours = countGreenNeighbours(i, j);
+        for (int i = 0; i < grid.getWidth(); i++) {
+            for (int j = 0; j < grid.getHeight(); j++) {
+                int greenNeighbours = rule.countGreenNeighbours(i, j);
 
-                if (getState(i, j) == 1) {
+                if (rule.getState(i, j) == 1) {
                     if (greenNeighbours == 0 || greenNeighbours == 1 || greenNeighbours == 4
                             || greenNeighbours == 5 || greenNeighbours == 7 || greenNeighbours == 8) {
                         newGrid[i][j] = 0;
@@ -56,7 +42,7 @@ public class Simulation extends Rules {
                         newGrid[i][j] = 1;
                     }
                 } else {
-                    if (getState(i, j) == 0) {
+                    if (rule.getState(i, j) == 0) {
                         if (greenNeighbours == 3 || greenNeighbours == 6) {
                             newGrid[i][j] = 1;
                         } else if (greenNeighbours == 0 || greenNeighbours == 1 || greenNeighbours == 4
@@ -68,6 +54,6 @@ public class Simulation extends Rules {
             }
         }
 
-        this.grid = newGrid;
+        this.grid.setGrid(newGrid);
     }
 }

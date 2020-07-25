@@ -1,31 +1,48 @@
 package com.home;
 
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        Simulation grid = new Simulation(4,4);
+        System.out.println("Enter grid size: ");
+        Scanner sc = new Scanner(System.in);
 
-        grid.setGreen(0, 0);
-        grid.setGreen(0, 3);
-        grid.setGreen(1, 0);
-        grid.setGreen(1, 1);
-        grid.setGreen(1, 2);
-        grid.setGreen(1, 3);
-        grid.setGreen(2, 1);
-        grid.setGreen(3, 0);
-        grid.setGreen(3, 2);
+        System.out.println("Enter a width: ");
+        int width = sc.nextInt();
+        System.out.println("Enter a height: ");
+        int height = sc.nextInt();
 
+        System.out.println("Enter grid element: ");
 
-        grid.print();
-        grid.step();
+        int[][] gameGrid = new int[width][height];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                gameGrid[i][j] = sc.nextInt();
+            }
+        }
+
+        Grid grid = new Grid(width, height, gameGrid);
+        Rules rule = new Rules(grid);
+        Simulation simulation = new Simulation(grid, rule);
+
+        grid.setGrid(gameGrid);
+
+        simulation.print();
+        simulation.step();
 
         System.out.println();
-        grid.print();
+        simulation.print();
 
         System.out.println();
 
-        grid.step();
-        grid.print();
+        simulation.step();
+        simulation.print();
+
+        System.out.println();
+        simulation.step();
+        simulation.print();
     }
 }

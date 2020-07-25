@@ -1,31 +1,25 @@
 package com.home;
 
-public class Rules extends Grid {
+public class Rules {
 
-    public Rules(int width, int height) {
-        super(width, height);
+    Grid grid;
+
+    public Rules(Grid grid) {
+
+        this.grid = grid;
     }
 
     public int getState(int i, int j) {
-        if (i < 0 || i >= width) {
+        if (i < 0 || i >= grid.getWidth()) {
             return 0;
         }
 
-        if (j < 0 || j >= height) {
+        if (j < 0 || j >= grid.getHeight()) {
             return 0;
         }
 
-        return this.grid[i][j];
+        return this.grid.getGrid()[i][j];
     }
-
-    public void setGreen(int i, int j) {
-        this.grid[i][j] = 1;
-    }
-
-    public void setRed(int i, int j) {
-        this.grid[i][j] = 0;
-    }
-
 
     public int countGreenNeighbours(int i, int j) {
         int count = 0;
